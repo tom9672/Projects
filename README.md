@@ -6,4 +6,5 @@ websites:
 
   board(forum): www.liminboard.com
   
-  mysite(company web): www.lmdaoju.com
+  mysite(company web): www.lmdaoju.com  (Incompletely, Insufficient specific pictures and text data)
+
