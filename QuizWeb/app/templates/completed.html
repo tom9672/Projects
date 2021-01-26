@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Mark Questions')</script>
+	<div class= "container">
+		<div class="alert alert-secondary alert-dismissible" role="alert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<p><i class="fas fa-info-circle"></i> Review questions submitted by users here. Click on <b>View</b> to view and provide feedback for a specific user's answers. </p>
+		</div>
+	</div>
+	<div class= "container">
+			<div class= "contentBox">
+					<h1 id="testmark">Mark Questions</h1>
+			    <form action="" method="post">
+			    <table class= "tableStyle">
+			        <tr>
+			            <th class= "tableColumnStyle"><b>User Id</b></th>
+			            <th class= "tableColumnStyle"><b>Username</b></th>
+			            <th class= "tableColumnStyle"><b>Answers</b></th>
+			        </tr>
+			        {% for u in users %}
+			        <tr>
+			            <td class= "tableColumnStyle">{{ u.id }}</td>
+			            <td class= "tableColumnStyle">{{ u.username }}</td>
+			            <td class= "tableColumnStyle">
+			                <a class="btn btn-danger btn-xs" href="/answered/{{u.id}}">View</a>
+			            </td>
+			        </tr>
+			    {% endfor %}
+					<br>
+			    </form>
+			</div>
+	</div>
+{% endblock %}

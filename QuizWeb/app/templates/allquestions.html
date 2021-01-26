@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class= "container">
+        <div class= "contentBox" style= "text-align: center">
+<table class= "tableStyle">
+    <tr class= "tableColumnStyle">
+    <th>Questions</th>
+    </tr>
+    {% for q in question %}
+    <tr class= "tableColumnStyle">
+        <td>{{ q.body }}</td>
+    </tr>
+    {% endfor %}
+		</div>
+	</div>
+
+
+
+</table>
+{% endblock %}

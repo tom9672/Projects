@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Login')</script>
+	<div class="container">
+    <h1 class="titleText">CITS3403 Quiz Platform</h1>
+    <form action="" method="POST" class="loginBackground" role="alert" novalidate>
+        {{ form.hidden_tag() }}
+        <p class="centerBoxes">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32, class_='textboxstyle1') }}
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="centerBoxes">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32, class_='textboxstyle1') }}
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p class="centerBoxes">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p class="centerBoxes">{{ form.submit() }}</p>
+    </form>
+	</div>
+	<br>
+<p class="centerBoxes"><i class="fas fa-exclamation-circle"></i> New User? <a href="{{ url_for('register') }}">Click Here to Register!</a></p>
+{% endblock %}

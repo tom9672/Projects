@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post">
+    {% for q in data %}
+        <p>{{ q }}</p>
+        <textarea name='answer'></textarea>
+        <hr>
+    {% endfor %}
+        <br>
+        <input type="submit">
+    </form>
+
+{% endblock %}

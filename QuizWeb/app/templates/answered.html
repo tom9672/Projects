@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="whiteText"> {{ user.username }}'s Answers</h1>
+    <form action="" method="post">
+        		
+        {% for q,an in qalist %}
+		<div class= "contentBox">
+            <p><b>Question:</b> {{ q.body }}</p>
+            <p><b>{{ user.username }} Answered: </b>{{ an.body }}</p>
+            <textarea name='feedback' placeholder="Write your feedback here...">{{ an.feedback }}</textarea>
+            <input type="number" name="score" placeholder="Score" min="0" max="2" value="{{ an.score }}">
+		</div>			
+            <hr>
+        {% endfor %}
+            <br>
+            <input type="submit" class="btn btn-light" onclick="NotifyUser('Feedback Saved')" value="Save Feedback">
+			<a href="{{ url_for('index') }}" class="btn btn-light">Done</a>
+        </form>
+
+{% endblock %}

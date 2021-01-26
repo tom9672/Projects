@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container">
+    <h1 class="titleText">Register</h1>
+    <form action="" class="loginBackground" role="alert" method="post">
+        {{ form.hidden_tag() }}
+        <p class= "centerBoxes">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32, class_='textboxstyle1') }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class= "centerBoxes">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32, class_='textboxstyle1') }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class= "centerBoxes">
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32, class_='textboxstyle1') }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class= "centerBoxes">{{ form.submit() }}</p>
+    </form>
+  </div>
+{% endblock %}

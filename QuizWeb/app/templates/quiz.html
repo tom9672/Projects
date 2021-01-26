@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Quiz')</script>
+			<div class= "container">
+						<div class="alert alert-secondary alert-dismissible" role="alert">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<p><i class="fas fa-info-circle"></i> View quizzes that have been made available here! Select a quiz to begin.</p>
+								<b id="quiztest">Related Actions:</b>
+								<ul>
+								<li><a href="{{ url_for('feedback') }}">View Marked Quizzes</a></li>
+								</ul>
+						</div>
+			</div>
+			<div class= "container">
+					<div class= "contentBox">
+							{% if length > 0 %}
+							    <p>You have <b>{{ length }}</b> active quiz(zes).</p>
+							    Select one to start:
+							{% else %}
+							    <p>You have <b>{{ length }}</b> active quiz(zes). Check back later!</p>
+							{% endif %}
+
+						<table class= "tableStyle">	
+							<tr>
+								<th class= "tableColumnStyle"><b>Quiz Name</b></th>
+								<th class= "tableColumnStyle"><b>Begin Quiz</b></th>
+							</tr>						
+							{% for q in data %}
+							    <tr>
+								<td class= "tableColumnStyle"> {{ q }}</td>
+								<td class= "tableColumnStyle"> <a class="btn btn-danger btn-xs" href="/doQuiz/{{ q }}">Begin</a></td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+			</div>
+{% endblock %}

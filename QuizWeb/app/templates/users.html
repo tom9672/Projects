@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Users')</script>
+	<div class= "container">
+			<div class="alert alert-secondary alert-dismissible" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<p><i class="fas fa-info-circle"></i> Manage registered users here! </p>
+			</div>
+	</div>
+	<div class= "container">
+			<div class= "contentBox">
+					<h1 id="testusers">Registered Users</h1>
+					<br>
+			    <table class= "tableStyle">
+			        <tr>
+			            <th class= "tableColumnStyle"><b>Username</b></th>
+			            <th class= "tableColumnStyle"><b>Administrator</b></th>
+			            <th class= "tableColumnStyle"><b>Delete User</b></th>
+			            <th class= "tableColumnStyle"><b>Delete User's Answers</b></th>
+			        </tr>
+			        {% for user in users %}
+			        <tr>
+			            <td class= "tableColumnStyle">{{ user.username }}</td>
+			            {% if user.admin %}
+			            <td class= "tableColumnStyle"> Yes </td>
+			            {% else %}
+			            <td class= "tableColumnStyle"> No </td>
+			            {% endif %}
+			            <td class= "tableColumnStyle">
+			                <a href="/deleteUser/{{user.id}}" class="btn btn-danger btn-xs" onclick="ConfirmUser('Are you sure you want to delete this user?')">Delete</a>
+			            </td>
+			            <td class= "tableColumnStyle">
+			                <a href="/deleteAnswer/{{user.id}}" class="btn btn-danger btn-xs" onclick="ConfirmUser('Are you sure you want to delete this answer?')">Delete</a>
+			            </td>
+			        </tr>
+			        {% endfor %}
+			    </table>
+			</div>
+	</div>
+{% endblock %}

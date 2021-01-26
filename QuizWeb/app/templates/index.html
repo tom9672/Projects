@@ -1,0 +1,52 @@
+	{% extends "base.html" %}
+
+	{% block content %}
+	<div class= "container">
+				<script>SetCurrentPage('Home')</script>
+						{% if quizzesactive > 0 %}
+								<div class="alert alert-danger alert-dismissible" role="alert">
+						{% else %}
+								<div class="alert alert-secondary alert-dismissible" role="alert">
+						{% endif %}
+
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					    <h4><i class="fas fa-bell"></i> Notifications:</h4>
+						{% if current_user.is_authenticated and not current_user.admin %}
+						{% if quizzesactive > 0 %}
+					    <a href="{{ url_for('quiz') }}">You currently have <b>{{ quizzesactive }}</b> active question(s) available to complete!</a>
+						{% else %}
+						<p> No pending notifications! </p>
+						{% endif %}
+					  {% endif %}
+
+						{% if current_user.is_authenticated and current_user.admin %}
+						<a href="{{ url_for('questions') }}">Questions currently active: <b>{{ quizzesactive }}</b></a>
+						{% endif %}
+						</div>
+	</div>
+	<div class= "container">
+		<div class= "contentBox">
+				{% if current_user.is_authenticated and not current_user.admin %}
+						<h1 id="greeting">Welcome, {{ current_user.username }}.</h1>
+						<br>
+						<p>To get started, click on the <a href="{{ url_for('quiz') }}"><b>Quiz</b></a> tab above.</p>
+						<p>This will bring you to the quiz section, where you can choose an active quiz and answer some questions.</p>
+						<p>Once you have completed your quiz and it has been marked by an administrator, you will find your results in the <a href="{{ url_for('feedback') }}"><b>Feedback</b></a> section.</p>
+						<p>Have fun!</p>
+				{% endif %}
+				{% if current_user.is_authenticated and current_user.admin %}
+						<h1>Welcome, {{ current_user.username }}.</h1>
+						<br>
+						<p><b id="greetingadmin">A brief introduction to the administrator page:</b></p>
+						<p>You can manage questions, users and mark questions completed by users from the menu above.</p>
+						<p>The <a href="{{ url_for('questions') }}"><b>Question</b></a> tab will allow you to manage existing question sets, providing functionality in viewing questions inside these sets, and also enabling you to delete the set.</p>
+						<p>The <a href="{{ url_for('addQuestions') }}"><b>Add Question</b></a> tab will allow you to add a question of your creation to either an existing, or new quiz. To add a question to a specific quiz, type the name of the quiz as the Set Name.</p>
+						<p>The <a href="{{ url_for('completed') }}"><b>Mark Questions</b></a> tab will give you access to information regarding which users have completed which questions/ quizzes. This is your marking management tool. By clicking the "answer" link, you can provide feedback, and let the user know whether their answer was correct or incorrect.</p>
+						<p>The <a href="{{ url_for('users') }}"><b>Users</b></a> tab is your user management tool. It will allow you to see what users are registered to your website, as well as notifying you as to whether they have administrator privileges. You can delete the user, or their answers using the buttons provided on the page.</p>
+
+				{% endif %}
+
+		</div>
+	</div>
+
+	{% endblock %}

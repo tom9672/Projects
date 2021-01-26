@@ -1,0 +1,726 @@
+commit c54e49afa0359565f495013e4efe5b6bdd9dc74b
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 25 00:20:00 2020 -0700
+
+    Validated html and fixed whatever I can (still has errors due to flask code like {%%} and {{}}
+
+commit e66383b3151c23cca9e4c5a82aa6d87b835eb96e
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Mon May 25 13:35:48 2020 +0800
+
+    1
+
+commit 2585643810f86cce85e1ebdb164ca0c05b50fc27
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Mon May 25 13:32:51 2020 +0800
+
+    update @login_required
+
+commit 3c3fc5c27912e6c1cd656f3f48889c525459247e
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Mon May 25 13:17:34 2020 +0800
+
+    README backend log
+
+commit dee50fccf25e59886757fadd28e4c4c462a3b66e
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Mon May 25 12:09:25 2020 +0800
+
+    update input number only for score
+
+commit 703e0d429c406a5f653f76c13320db5eedd5fa84
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 23:21:39 2020 +0800
+
+    show last feedback and score in textarea
+
+commit 2f5c99d0c2a7cf01eeb51454e983fe35c66856d9
+Merge: 8b4c77c f855f21
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 22:40:53 2020 +0800
+
+    Merge branch 'master' of https://github.com/CITS3403QuizProject/CITS3403Project2
+
+commit 8b4c77c27dc6a1fa40927021114d8442dc89bf71
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 22:40:45 2020 +0800
+
+    retake test will remove all old answers,
+    feedback and makrs
+
+commit f855f21b1506fb7c682078982c9d42886ef1fcf6
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 22:27:12 2020 +0800
+
+    Remove original UI Structure reference file.
+
+commit d9eead098a7603ee528e7b99b19abaa7ccfcdae3
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 21:54:05 2020 +0800
+
+    fixing readme
+
+commit 1597a12f71619dd6225636ca01efc104f3672fed
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 21:51:08 2020 +0800
+
+    README development process updated, minor ease of reading changes.
+
+commit fa6910e3dc8e5a24def123e4d08df5f88be02f41
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 21:44:36 2020 +0800
+
+    add score to answer.
+    totalscore in feedback page
+
+commit 4c3660084a2031dc47ab915636ed0e365b1e5d26
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 21:06:21 2020 +0800
+
+    prevent admin user delete themselves
+
+commit babbbccf16883e4acda7884418cc1f1dc8bc4306
+Merge: bd7cd42 78eb3f8
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 20:49:13 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit bd7cd42b05bd5160297385d46bbdd705fa7eb569
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 20:48:52 2020 +0800
+
+    add admin system test fucntions
+
+commit 78eb3f84fcea82f62c618db13474bd12839c7e96
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 20:47:10 2020 +0800
+
+    Fix README
+
+commit 65c86944fa10cc165fa8f7152ce8282d2219e8dc
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 20:34:07 2020 +0800
+
+    Updated readme, renamed requirements.txt
+
+commit 8ab60ba70bdab63ae4c842d289e765bd9d4c6cef
+Merge: 27c9642 61d0d67
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sun May 24 05:26:03 2020 -0700
+
+    Merge branch 'master' of https://github.com/CITS3403QuizProject/CITS3403Project2
+
+commit 27c9642c2b01aeffe4ac69e3206448df68b23928
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sun May 24 05:25:43 2020 -0700
+
+    Frontend changes
+    
+    Frontend visual/design changes.
+
+commit 61d0d679fea38f2131015a3b1c7d133bc50851ac
+Merge: 1b4f613 6202398
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 20:17:01 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1b4f613af8dc382aa0ce5d05a5d3f9b75506f523
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 24 20:16:37 2020 +0800
+
+    fix test, add id in templates
+
+commit 62023981c3d6fdb1ef0d9d640c24a7d48a4de1cc
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sun May 24 04:56:46 2020 -0700
+
+    Changed doing quizzes to update a user's submission instead of create a new database entry.
+
+commit 2cc000cfc86684ded6c444762061ee3d87da1c7c
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 16:20:33 2020 +0800
+
+    delete set
+
+commit 0a04cdf9d2e140d854c0055347ffdadc707af6c9
+Merge: 04e8972 3ae9ddb
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 15:42:21 2020 +0800
+
+    Merge branch 'master' of https://github.com/CITS3403QuizProject/CITS3403Project2
+
+commit 04e897218a4e1eeabf1a75e9bc251bc107426e1d
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 24 15:42:13 2020 +0800
+
+    fixed delete user error
+
+commit 3ae9ddb4bf4a36d9afaa726ddefe7bbfb086c4b3
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sun May 24 00:09:01 2020 -0700
+
+    More CSS changes
+    
+    Added borders to tables, text wrapping and made CSS more consistent.
+
+commit 2c331e8f5fdc947bcdc833fa2e69902b3049b910
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sat May 23 22:54:12 2020 -0700
+
+    Formatting website, fixing a few bugs, changing a bit of text
+
+commit 52ed78f88ef4f1f4c1f55fa1ccef2a052c8c15e7
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 24 03:15:23 2020 +0800
+
+    Overhaul of interface, update arrangement of pages, update spelling and grammar, more polished look.
+
+commit 62e764454c0bc588d4719eb21bfcb8d764ebbea0
+Author: tomzhou <18896825080@163.com>
+Date:   Sat May 23 18:06:30 2020 +0800
+
+    Add new system testing
+
+commit 9c81ba3396bec6958e3cec3d0f086b1d8f7f19bc
+Author: tomzhou <18896825080@163.com>
+Date:   Fri May 22 23:05:52 2020 +0800
+
+    add test function
+
+commit 33fe8159daf83adf971d96d57daea3ff060e39e5
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 21:26:01 2020 +0800
+
+    update(routes,test,base,index,users)
+
+commit e8d763dcf1d72b7a5065c7cd2888c5a5bd013a5d
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Fri May 22 03:22:40 2020 -0700
+
+    Fixing things broken by merge
+
+commit 612f4bdd2402aab620bbdff7a91f37a2fe02aae8
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 17:43:07 2020 +0800
+
+    for testing
+    change Config to TestConfig
+
+commit ce76b4c96f7f1230541576f19134f36e93add25d
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 17:40:44 2020 +0800
+
+    testing files
+
+commit aed575864931014c6fd216cc6e59e1bcd8f24aa7
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 17:30:43 2020 +0800
+
+    update config and pages
+
+commit dd2189032784350d795bf214d26aa55afcf68e35
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 17:15:55 2020 +0800
+
+    updat question page
+
+commit 526b16781f09470b843905a7bb19816bf873325e
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 17:10:39 2020 +0800
+
+    update all pages
+
+commit 311d6fa0e42f9133052ddc59c918be6308a59888
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 16:47:42 2020 +0800
+
+    update forms
+
+commit a296b96391da657726173fa9d146f4cff1e727ff
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 16:40:09 2020 +0800
+
+    update routes
+
+commit d3ed046519481bc18fe67de868ca457cc5b49495
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Fri May 22 16:38:20 2020 +0800
+
+    update models
+
+commit d24ec99001698302e5ee061546dd0d8202230dc3
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Thu May 21 02:33:45 2020 -0700
+
+    More interface design.
+    
+    Added more help messages and icons.
+
+commit 8f2b2f8404f300f6bd245901b897faeb05a4f563
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Thu May 21 02:17:58 2020 -0700
+
+    Added help messages to most pages in Admin mode.
+    
+    Also added a notifications alert to the homepage and changed some text.
+
+commit f8a26553e2ff113b8ae679e70acbd1a0432f8772
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Thu May 21 00:40:09 2020 -0700
+
+    Notifications in homepage
+    
+    Design changes
+
+commit 71fa16416040cd1c671a15d105f62070b146fa2d
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Wed May 20 23:54:14 2020 -0700
+
+    Made page layouts better, added icons to navigatin bar.
+
+commit 43a19acfc10ae026a9d72a3336157007f6079dca
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 22:49:16 2020 -0700
+
+    Update models.py
+    
+    Manually did the merge for models.py
+
+commit 8e55fd4067f6647a3eca44d057745d1140d0d371
+Merge: ffd552e 41346ea
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 22:45:50 2020 -0700
+
+    Merge branch 'backend'
+
+commit 41346eac7c98d79daadbd89e7ff9ff2690574053
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 22:24:34 2020 -0700
+
+    Revert "Merge branch 'backend' of https://github.com/CITS3403QuizProject/CITS3403Project2 into backend"
+    
+    This reverts commit 7b341b28d5abdb819dc49ec6119b46bf4df50b95, reversing
+    changes made to 0a3f5a43f2acc2daf2ff30a9540c26deda11cabe.
+
+commit 7b341b28d5abdb819dc49ec6119b46bf4df50b95
+Merge: 0a3f5a4 a635bef
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 22:18:13 2020 -0700
+
+    Merge branch 'backend' of https://github.com/CITS3403QuizProject/CITS3403Project2 into backend
+
+commit ffd552e1204660933bcc077fee0e348c796714a3
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 22:16:12 2020 -0700
+
+    Merged backend with master and resolved conflicts.
+
+commit 5237b0c7e03e5d6d1334feb9c8d159ff1c627860
+Merge: 8fb5bc0 0a3f5a4
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 21:54:15 2020 -0700
+
+    Merge branch 'backend'
+
+commit a635befd88aecec282774f363fd9a20f3be3d0f8
+Author: tomzhou <18896825080@163.com>
+Date:   Wed May 20 11:39:45 2020 +0800
+
+    mark webpage, loop qustion and answer(from user and real answer). textarea for feedback.
+    
+    feedback page may push on 21th of may, i am busy today, probably no new push today.
+
+commit 043ac3892a6d61e3f48f74a7fb2c2ca7f14d2dcc
+Author: tomzhou <18896825080@163.com>
+Date:   Wed May 20 11:28:46 2020 +0800
+
+    mark list for admin, get questions useranswers and realanswers.
+
+commit 15976c2a561a896ff781a98fc86dafaf88496e3d
+Author: tomzhou <18896825080@163.com>
+Date:   Wed May 20 10:43:54 2020 +0800
+
+    user do quiz, submit answer, show quiz list for noraml user if they haven't finish it, otherwise, hidde it. all function test good until now.
+
+commit 8fb5bc0f2ef9b02f67f9b9999b7152dc4aa72209
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 17:18:43 2020 -0700
+
+    Removed Migration files
+
+commit 0a3f5a43f2acc2daf2ff30a9540c26deda11cabe
+Merge: b829b2f 77d99b5
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Tue May 19 21:25:04 2020 +0800
+
+    Merge branch 'backend' of https://github.com/CITS3403QuizProject/CITS3403Project2 into backend
+
+commit 77d99b51508e71440d4566fb5d4bb6cb4760144c
+Author: tomzhou <18896825080@163.com>
+Date:   Tue May 19 21:22:51 2020 +0800
+
+    get quiz answer from user submit
+
+commit b829b2f122728480a88d7f08b2e0a6577be75fbd
+Merge: 1dd6ff1 dd798c2
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Tue May 19 21:03:18 2020 +0800
+
+    test
+
+commit dd798c25cb1d023a92be9a377bf93870a5e8f8b4
+Author: tomzhou <18896825080@163.com>
+Date:   Tue May 19 20:21:35 2020 +0800
+
+    normal can get quizset data
+
+commit a56c750ab0c72a7b9b86086dc93225f4668bd255
+Author: tomzhou <18896825080@163.com>
+Date:   Tue May 19 20:07:15 2020 +0800
+
+    quizset showdetails in a form
+
+commit f078157f67206b7a16aa66a813c8db8a0081f4ce
+Author: tomzhou <18896825080@163.com>
+Date:   Tue May 19 19:57:28 2020 +0800
+
+    quiz set publish and unpublish function
+
+commit e1898f725d24ea014c338cb5855aa596a64f0103
+Author: tomzhou <18896825080@163.com>
+Date:   Tue May 19 17:09:31 2020 +0800
+
+    new function for delete and edit for users list, questions list, quiz set list, and can makequiz bt checkbox, edit question function still have some problem.
+    remove ratio when login, admin users have to go route.py line45 change false to true to get a admin account
+
+commit ef194f9e542d5b2e44006923f730d33034dd4539
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 01:20:56 2020 -0700
+
+    Settings menu and trying out changing CSS for website themes.
+
+commit 1d9966c26f66cebdf9ea3fca5120ce60abbaff3b
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Tue May 19 00:33:52 2020 -0700
+
+    Stylized textboxes and reformatted webpage layout.
+    
+    Removed redundancy of home and login headers when the user is logged out.
+
+commit 1fec1f0a45463062e9dab86f76749303024b5ad4
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 18 23:05:09 2020 -0700
+
+    Fixed some highligted page logic.
+    
+    The current highlighted page is now more correct (it used to highlight a wrong current page when redirected).
+
+commit 3587f06b5eadca1787f9744635031254cce45b54
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Tue May 19 00:51:20 2020 +0800
+
+    update quiz page to display questions.
+    Submit form not complete
+
+commit e445bd828e78c1bf16a69434dcc04e9db606bb8d
+Merge: a8486b1 0354ee4
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Tue May 19 00:04:50 2020 +0800
+
+    update user
+
+commit a8486b1dce8b1a462aca569c6b91ca22a428afc7
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Tue May 19 00:01:29 2020 +0800
+
+    Add an answer database.
+    update users.html
+    update users in routes
+
+commit 0354ee4f7fe74e501993e604313403cb511061be
+Author: tomzhou <18896825080@163.com>
+Date:   Mon May 18 22:52:34 2020 +0800
+
+    try to get value of textarea by id,
+    use loop to get all the answer submitted by user
+
+commit 52e92c7e6a3b96e9cf8bf6e58697bdb897ff8324
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Mon May 18 22:13:33 2020 +0800
+
+    addroutes
+
+commit 77986044d2bfda62c4e771d3da7c8335a8f7e0ba
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 18 04:39:17 2020 -0700
+
+    Reordered base.html
+    
+    Reordered base.html to change some functionality for admins.
+
+commit 9c832da09541bc3fc188ecf0fe20d5c56f8c81b4
+Author: tomzhou <18896825080@163.com>
+Date:   Mon May 18 19:17:36 2020 +0800
+
+    how to add admin:
+    route.py line59,change False to True
+    I will write a page for admin register next time.
+    
+    only admin can use there page now:
+    question list, user list, addQuestion page,
+
+commit f43b70ca94531c8e2d433e29fd76f9b944474ac8
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 18 03:58:36 2020 -0700
+
+    Have to add migrations
+    
+    Adding migrations so database exists without having to recreate it all the time.
+
+commit f98b8069ae618b5ccda25cf80b79a74faa37845e
+Merge: c2d36a7 6a66467
+Author: PhoenixChua <51844308+PhoenixChua@users.noreply.github.com>
+Date:   Mon May 18 03:50:56 2020 -0700
+
+    Merge pull request #2 from CITS3403QuizProject/frontend
+    
+    Integrated CSS and Javascript with Base Template
+
+commit 6a664678573b9c91b7ca3d7ab68898e6a4b08fdc
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 18 03:46:19 2020 -0700
+
+    Frontend work
+    
+    Integrated javascript and css into the base template.
+
+commit 040f2999be1d652732a6c9e4307104513edd99d6
+Merge: 274dd37 c2d36a7
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Mon May 18 00:05:24 2020 -0700
+
+    Merge branch 'master' into frontend
+
+commit c2d36a720777a0176b50a3507ff4622b3d9601ba
+Author: tomzhou <18896825080@163.com>
+Date:   Mon May 18 14:23:53 2020 +0800
+
+    1.complete function of add questions and show question list.
+    2.use 'flask run' in terminal with env to run project.
+    3.register and login, then add question for all users, need to limit this only for admin user.
+
+commit 11f256161a4d50957d42f404783aa2c47f67148f
+Author: tomzhou <18896825080@163.com>
+Date:   Mon May 18 00:39:27 2020 +0800
+
+    debug and new functions, now the current web runs correctly.
+
+commit 274dd3730adf3219d275ad87b9ac324c61a5e1d3
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:21:07 2020 +0800
+
+    Delete register.htm
+
+commit 6b84b46e384d32051b9063de8f352cdad8c81fc3
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:20:44 2020 +0800
+
+    Delete quiz.htm
+
+commit 66405d694a860d4e318949747524375687408f66
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:20:35 2020 +0800
+
+    Delete proj2Style.css
+
+commit 163640e3c3f67d5e2f48d8070d1862bb4cea9c80
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:20:23 2020 +0800
+
+    Delete login.htm
+
+commit d76bf71f82ff326de99d7c9cb7f3816068aa8e19
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:20:02 2020 +0800
+
+    Delete info.htm
+
+commit f439667192944ba2b00c881565c54bb6656085dd
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:19:45 2020 +0800
+
+    Delete home.htm
+
+commit acddb12b049f49aa654125a51238f58101761a0e
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:19:09 2020 +0800
+
+    Delete createfolder
+
+commit 2c307178ce025c9b7df23111688a97429ba7df3b
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:18:51 2020 +0800
+
+    Add files via upload
+    
+    Basic initial interface, open to modification.
+
+commit 84fb15a1445457e3435d71163b718e5ac70871f3
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:17:58 2020 +0800
+
+    Create createfolder
+
+commit f6a7da13a064c08f271f39f918f1dee17483da2d
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:16:09 2020 +0800
+
+    Delete UIStructure
+
+commit bfddcd11fcc02f1f0e09d94d88ec90b899031fa1
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:15:41 2020 +0800
+
+    Create UIStructure
+
+commit 458a2df0e8c99b0bd2fc8291f677caeb3867cc4d
+Author: Adonetta <65491230+Adonetta@users.noreply.github.com>
+Date:   Sun May 17 23:12:05 2020 +0800
+
+    Add files via upload
+    
+    Draft base model for web page (open to modification).
+
+commit 28a4f44ae9538e8000f7e448becfa88102b529b6
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 22:55:10 2020 +0800
+
+    spelling check
+
+commit 84b77a818da0bf3421bfa9308c4ab2b39407bc06
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 22:12:22 2020 +0800
+
+    spelling checked
+
+commit c8eb44ab856aa5ba34103944ff026f18727c02a5
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 21:32:59 2020 +0800
+
+    basicfile
+
+commit 11f5251e7721829f5e12fd1b683135b6bfea83be
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 20:32:10 2020 +0800
+
+    model
+
+commit a308f351b546bed4cd5afd4ef4d911585c71cfe3
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 20:27:47 2020 +0800
+
+    basicfile
+
+commit 77613a95b3bb7d90f030401ec74cdc2010d86ed1
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 17:10:21 2020 +0800
+
+    test
+
+commit 1dd6ff13cf0d2c6b58dea1dd97b1062d11fb6aac
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 17:09:36 2020 +0800
+
+    test
+
+commit f9e6205e6ae524bdce1585bf3ca8ad764c6487d4
+Merge: 95a1134 c1d0c96
+Author: sx <63200481+sxxnz@users.noreply.github.com>
+Date:   Sun May 17 17:06:34 2020 +0800
+
+    Merge pull request #1 from CITS3403QuizProject/backend
+    
+    Backend
+
+commit c1d0c96a49e4cab3d9a8c0d6f202139812d10d58
+Merge: d660d6d 95a1134
+Author: sx <63200481+sxxnz@users.noreply.github.com>
+Date:   Sun May 17 17:05:34 2020 +0800
+
+    Merge branch 'master' into backend
+
+commit d660d6dd370792821495cb5fb16ef3c1bf5f03a8
+Merge: e2b92a8 ed8d93e
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 17:00:43 2020 +0800
+
+    Merge branch 'backend' of https://github.com/CITS3403QuizProject/CITS3403Project2 into backend
+
+commit e2b92a81b81a8983da646ac4594c4ee5801762f8
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 16:59:53 2020 +0800
+
+    test
+
+commit 95a113492ed11f92a7380be275475728ba144bc9
+Merge: 0440e58 6db3380
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 16:58:27 2020 +0800
+
+    Merge branch 'master' of https://github.com/CITS3403QuizProject/CITS3403Project2
+
+commit ed8d93e85de72755cae202f97d092fa104bc4f87
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 17 16:54:12 2020 +0800
+
+    test
+
+commit 9d6804ba07bdc901ec72647f709c093f96a6ba05
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 16:48:50 2020 +0800
+
+    test
+
+commit 0440e58ab965492107a31e8d969aaf6d24e0e7f3
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 16:47:37 2020 +0800
+
+    test
+
+commit 6db33805aad8b03faa0d14e08c276275fbfb994b
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 17 16:47:36 2020 +0800
+
+    structure
+
+commit 466e36ff7ecfc116666d257e4e97a8722363be9b
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 17 16:42:56 2020 +0800
+
+    structure
+
+commit 485bd534542f26469f593e1863a76c241e750db7
+Author: tomzhou <18896825080@163.com>
+Date:   Sun May 17 16:17:45 2020 +0800
+
+    test1
+
+commit f555b706ac4a12bb0e77d16d338a250bf44250c0
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 15:51:42 2020 +0800
+
+    test
+
+commit 5515281857edd0886e0e4a9af75f985edfa0d931
+Author: s <sx@Shengxins-MacBook-Pro.local>
+Date:   Sun May 17 15:47:45 2020 +0800
+
+    init
+
+commit 1bc529ba42c4d434cc53fa072afbcc43c1b2ddb1
+Author: Phoenix <phoenix.ch13@gmail.com>
+Date:   Sat May 16 04:19:37 2020 -0700
+
+    Initial commit

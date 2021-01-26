@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Home')</script>
+    <h1>Welcome back, {{ current_user.username }}!</h1>
+	{% if quizzesactive > 0 %}
+	<div class="alert alert-danger alert-dismissible" role="alert">
+	{% else %}
+	<div class="alert alert-secondary alert-dismissible" role="alert">
+	{% endif %}
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <h2><i class="fas fa-bell"></i> Notifications:</h2>
+	{% if current_user.is_authenticated and not current_user.admin %}
+	{% if quizzesactive > 0 %}
+    <a href="{{ url_for('quiz') }}">You have <b>{{ quizzesactive }}</b> active quiz(zes) to complete!</a>
+	{% else %}
+	<p> No pending notifications! </p>
+	{% endif %}
+    {% endif %}
+	
+	{% if current_user.is_authenticated and current_user.admin %}
+	<a href="{{ url_for('quizset') }}">There are currently <b>{{ quizzesactive }}</b>  active quiz(zes).</a>
+	{% endif %}
+	</div>
+{% endblock %}

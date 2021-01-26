@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Feedback')</script>
+	<div class= "container">
+			<div class="alert alert-secondary alert-dismissible" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<p><i class="fas fa-info-circle"></i> View feedback for questions that have been marked here!</p>
+			</div>
+	</div>
+	<div class= "container">
+			<div class= "contentBox">
+		    <p id="testfb">Hi {{ current_user.username }}, your results are below!</p>
+		    <table class= "tableStyle">
+		        <tr>
+		            <td class= "tableColumnStyle"><b>Question</b></td>
+		            <td class= "tableColumnStyle"><b>Your Answer</b></td>
+					<td class= "tableColumnStyle"><b>Feedback</b></td>
+					<td class= "tableColumnStyle"><b>Score(Out of 2)</b></td>
+
+		        </tr>
+
+		        {% for q,an in qalist %}
+		        <tr>
+		            <td class= "tableColumnStyle">{{ q.body }}</td>
+		            <td class= "tableColumnStyle">{{ an.body }}</td>
+					<td class= "tableColumnStyle">{{ an.feedback }}</td>
+					<td class= "tableColumnStyle">{{ an.score }}</td>
+		        </tr>
+		        {% endfor %}
+			</table>
+			<p>Total: {{ totalscore }} /10</p>
+			</div>
+	</div>
+{% endblock %}

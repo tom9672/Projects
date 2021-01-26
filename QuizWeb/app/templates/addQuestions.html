@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<script>SetCurrentPage('Add Question')</script>
+
+	<div class= "container">
+			<div class="alert alert-secondary alert-dismissible" role="alert">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<p><i class="fas fa-info-circle"></i> Add a new question to the database here!</p>
+					<p>All questions with the same <b>Set Name</b> are displayed together to the user as a quiz.</p>
+					<b>Related Actions:</b>
+					<ul>
+					<li><a href="{{ url_for('questions') }}">View Existing Questions</a></li>
+					</ul>
+			</div>
+	</div>
+	<div class= "container">
+			<div class= "contentBox">
+				  <h1 id="testaddquestion">Add Question</h1>
+				  <form action="" method="post">
+				      {{ form.hidden_tag() }}
+				      <p>
+						      {{ form.question.label }}<br>
+						      {{ form.question() }}<br>
+						  </p>
+				      <p>
+				          Set Name<br>
+				          {{ form.set_id() }}<br>
+				      </p>
+				      <p onclick="NotifyUser('Adding question to database!')">{{ form.submit() }}</p>
+    			</form>
+			</div>
+	</div>
+{% endblock %}
