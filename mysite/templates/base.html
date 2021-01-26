@@ -1,0 +1,78 @@
+{% load static %}<!DOCTYPE  html>
+<html>
+    <head>
+
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+        <title>{% block title %}Home{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+
+        
+    </head>
+
+    <body>
+
+<div class="jumbotron jumbotron-fluid" id="top">
+  <div class="container">
+    <h1 class="display-4">江苏苏州刀具公司 <span style="font-size: small;"> (专业制造纸管开槽刀具) </span></h1>
+    <p style="color: hotpink;">欢迎访问本网站!</p>
+  </div>
+</div>
+
+ 
+{% block navbar %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" ">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="{% static 'imgs/logo1.png' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <ul class="navbar-nav">   
+
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'products' %}">产品信息</a>
+      </li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'equipments' %}">设备展示</a>
+      </li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+	      <a class="nav-link" href="{% url 'company' %}">公司动态</a>
+      </li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'purchase' %}">采购信息</a>
+      </li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'contact' %}">联系我们</a>
+      </li>
+    </ul>
+</nav>
+
+{% endblock%}
+
+        <div class="container">
+          {% block content %}
+          {% endblock %}
+        </div>
+  
+        <br><br>
+
+        <div class="well well-sm" style="text-align: center;">
+          <small>江苏省苏州市相城区利民刀具公司</small> <br>
+          <small>联系人: 周先生 / 电话: xxxxxxxxx  / 邮箱: xxxxxxxxxx@example.com</small>
+
+            
+          </div>
+
+          <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+          <script src="{% static 'js/bootstrap.min.js' %}"></script>
+          <script src="{% static 'js/my.js' %}"></script>
+    </body>
+</html>

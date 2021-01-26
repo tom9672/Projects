@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-2">
+        <hr>
+        <ul class="list-group">
+             <a href="{% url 'products' %}" class="list-group-item" style="background-color: #666666; color: blanchedalmond;">产品分类</a> 
+             <a href="{% url 'product1' %}" class="list-group-item" style="color: #666666;">镶锋刀</a> 
+             <a href="{% url 'product2' %}" class="list-group-item" style="color: #666666;">圆形刀片</a> 
+             <a href="{% url 'product3' %}" class="list-group-item" style="color: #666666;">钨钢刀片</a> 
+             <a href="{% url 'product4' %}" class="list-group-item" style="color: #666666;">合金刀片</a> 
+             <a href="{% url 'product5' %}" class="list-group-item" style="color: #666666;">异形刀片</a> 
+             <a href="{% url 'product6' %}" class="list-group-item" style="color: #666666;">碳钢刀片</a> 
+             <a href="{% url 'product7' %}" class="list-group-item" style="color: #666666;">不锈钢刀片</a> 
+             <a href="{% url 'product8' %}" class="list-group-item" style="color: #666666;">高速钢刀片</a> 
+             <a href="{% url 'product9' %}" class="list-group-item" style="color: #666666;">冶金机械刀片</a> 
+
+        </ul>
+       </div>
+       <div class="col-md-10">
+           <hr>
+        {% block product %}
+        <h1>整体介绍，主要刀片介绍</h1>
+        {% endblock %}
+       </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body" align="center">
+            <img src="" id="image">
+        </div>
+    </div>
+  </div>
+  
+{% endblock %}

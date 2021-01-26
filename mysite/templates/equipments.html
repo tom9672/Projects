@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="{% static 'imgs/logo1.png' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ul class="navbar-nav">   
+  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'products' %}">产品信息</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'equipments' %}">设备展示</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'company' %}">公司动态</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'purchase' %}">采购信息</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">联系我们</a>
+        </li>
+      </ul>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<hr>
+
+<div class="container">
+  <div class='row'>
+
+    <div class='col-md-4'> 
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment1.png' %}" alt="1" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment2.png' %}" alt="2" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4"> 
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment3.png' %}" alt="3" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+<br><br>
+
+  <div class='row'>
+
+    <div class='col-md-4'> 
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment1.png' %}" alt="1" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment2.png' %}" alt="2" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4"> 
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'imgs/equipment3.png' %}" alt="3" style="height: 18rem;" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-body" align="center">
+          <img src="" id="image">
+      </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

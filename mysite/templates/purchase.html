@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="{% static 'imgs/logo1.png' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ul class="navbar-nav">   
+  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'products' %}">产品信息</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'equipments' %}">设备展示</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'company' %}">公司动态</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'purchase' %}">采购信息</a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">联系我们</a>
+        </li>
+      </ul>
+  </nav>
+{% endblock %}
+
+
+
+{% block content %}
+
+<hr>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">采购列表</li>
+  </ol>
+</nav>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-2">
+    <ul class="list-group">
+      <a href="#" class="list-group-item list-group-item-action">钨钢</a>
+      <a href="#" class="list-group-item list-group-item-action">合金</a>
+      <a href="#" class="list-group-item list-group-item-action">砂轮</a>
+      <a href="#" class="list-group-item list-group-item-action">金刚砂轮</a>
+      <a href="#" class="list-group-item list-group-item-action">手套</a>
+      <a href="#" class="list-group-item list-group-item-action">口罩</a>
+    </ul>
+
+  </div>
+
+  <div class="col-md-10"> 
+
+    {% block purchase %}
+
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="{% static 'imgs/shalun.jpg' %}" class="card-img" alt="采购" onclick="BigBig(this.src, this.width, this.height);" data-target="#myModal" data-toggle="modal">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">物品名称</h5>
+            <p class="card-text">“描述物品.....”</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+
+
+
+  </div>
+
+
+</div>
+
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-body" align="center">
+          <img src="" id="image">
+      </div>
+  </div>
+</div>
+
+{% endblock %}
