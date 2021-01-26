@@ -1,0 +1,59 @@
+PODS:
+  - background_fetch (0.5.6):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_ble_lib (2.3.0):
+    - Flutter
+    - MultiplatformBleAdapter (~> 0.1.6)
+  - flutter_inappwebview (0.0.1):
+    - Flutter
+  - MultiplatformBleAdapter (0.1.6)
+  - path_provider (0.0.1):
+    - Flutter
+  - "permission_handler (5.0.1+1)":
+    - Flutter
+  - shared_preferences (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_ble_lib (from `.symlinks/plugins/flutter_ble_lib/ios`)
+  - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+
+SPEC REPOS:
+  trunk:
+    - MultiplatformBleAdapter
+
+EXTERNAL SOURCES:
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
+  Flutter:
+    :path: Flutter
+  flutter_ble_lib:
+    :path: ".symlinks/plugins/flutter_ble_lib/ios"
+  flutter_inappwebview:
+    :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+
+SPEC CHECKSUMS:
+  background_fetch: 9e1c6c010f2bafe94108358405b7f2a08d6b5ab1
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_ble_lib: 1d400af3aa9ea4b069974cd06c2bafefe0289086
+  flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
+  MultiplatformBleAdapter: 652f47ecd7f5036756517cf66833210709a72eab
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.9.3

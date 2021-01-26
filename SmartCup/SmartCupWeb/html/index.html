@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SmartCup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+<meta name="HandheldFriendly" content="true">
+<link rel="stylesheet" href="./css/roboto.css">
+<link rel="stylesheet" href="./css/SmartCupTheme.css">
+<style type="text/css">
+    #errorPage {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99;
+        background-color: #fff;
+        text-align: center;
+        line-height: 128px;
+    }
+    #usernameLbl {
+        font-size: 13px;
+        line-height: 36px;
+        flex: 1 1 auto;
+        text-align: right;
+        padding-right: 8px;
+    }
+    #signoutBtn {
+        font-size: 13px;
+        width: 64px;
+        line-height: 36px;
+        vertical-align: top;
+        height: 36px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    .todayGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-auto-rows: 180px;
+        grid-gap: 12px;
+    }
+
+    .todayGrid > div:nth-child(3) {
+        grid-column: span 2;
+    }
+
+    @media screen and (max-width: 500px) {
+        .todayGrid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+    }
+
+    .chartAbsolute {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+    .chartAxis {
+        font-size: 12px;
+    }
+</style>
+</head>
+<body>
+    <div id="errorPage" style="display: none;">
+        Error occured. Please refresh the page.
+    </div>
+    <div id="userSection" class="header">
+        <div class="mainFrame">
+            <div class="sectionContent">
+                <div style="display: flex; flex-flow: row;">
+                    <div id="usernameLbl" class="labelStyle"></div>
+                    <div id="signoutBtn" class="primaryColorBg button">Sign out</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainTitleContainer unsafeLeftRight">
+        <div class="mainFrame">
+            <h6>Water Intake</h6>
+        </div>
+    </div>
+    <div class="main">
+        <div class="section">
+            <div class="sectionTitle unsafeLeftRight">
+                <div class="mainFrame">
+                    <h5>TODAY</h5>
+                </div>
+            </div>
+            <div class="mainFrame">
+                <div class="sectionContent todayGrid">
+                    <div id="todayRingGraph" class="sectionCard">
+                        <div class="sectionCardTitle" style="color: #579e02;">
+                            DAILY GOAL
+                        </div>
+                        <div class="sectionCardContent">
+                            <svg viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                                <defs>
+                                    <filter id="dailyGoalRingGlow" height="140%" width="140%" x="-20%" y="-20%">
+                                        <feMorphology operator="dilate" radius="0.2" in="SourceAlpha" result="thicken"></feMorphology>
+                                        <feGaussianBlur in="thicken" stdDeviation="0.5" result="blurred"></feGaussianBlur>
+                                        <feFlood flood-color="#579e02" result="glowColor"></feFlood>
+                                        <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored"></feComposite>
+                                        <feMerge>
+                                            <feMergeNode in="softGlow_colored"></feMergeNode>
+                                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <g>
+                                    <path
+                                        d="M24 4 a 20 20 0 0 1 0 40 a 20 20 0 0 1 0 -40"
+                                        fill="none"
+                                        stroke="#777"
+                                        opacity="0.25"
+                                        stroke-width="3.6"
+                                    />
+                                    <path id="dailyGoalRingPath" 
+                                        d="M24 4 a 20 20 0 0 1 0 40 a 20 20 0 0 1 0 -40"
+                                        fill="none"
+                                        stroke="#579e02"
+                                        stroke-width="3.6"
+                                        stroke-linecap="round"
+                                        stroke-dasharray="0 999"
+                                    />
+                                    <text id="dailyGoalRingPercent" 
+                                        x="24" 
+                                        y="22" 
+                                        width="48" 
+                                        heght="24" 
+                                        fill="#579e02" 
+                                        font-size="11" 
+                                        text-anchor="middle" 
+                                        alignment-baseline="middle" 
+                                        font-weight="600">0%</text>
+                                    <text id="dailyGoalRingLitre"
+                                        x="24" 
+                                        y="30" 
+                                        width="48" 
+                                        heght="24" 
+                                        fill="#579e02" 
+                                        font-size="5" 
+                                        text-anchor="middle" 
+                                        alignment-baseline="middle" 
+                                        font-weight="500">0.0/2.0L</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="todayGraph2" class="sectionCard">
+                        <div class="sectionCardTitle" style="color:#0096cc;">
+                            AVERAGE
+                        </div>
+                        <div class="sectionCardContent">
+                            <svg viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+                                <text id="averageLitreHour" 
+                                    x="25" 
+                                    y="22.5" 
+                                    width="50" 
+                                    height="25" 
+                                    fill="#0096cc" 
+                                    font-size="20" 
+                                    text-anchor="middle" 
+                                    alignment-baseline="middle" 
+                                    font-weight="600">0</text>
+                                <text 
+                                    x="25" 
+                                    y="33.3" 
+                                    width="50" 
+                                    height="25" 
+                                    fill="#0096cc" 
+                                    font-size="5" 
+                                    text-anchor="middle" 
+                                    alignment-baseline="middle" 
+                                    font-weight="500">ML/HOUR</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="todayGraph3" class="sectionCard">
+                        <div class="sectionCardTitle" style="color: #b75203;">
+                            HOURLY STATS
+                        </div>
+                        <div class="sectionCardContent">
+                            <div id="hourlyIntakeStats" class="chartAbsolute"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="sectionTitle unsafeLeftRight">
+                <div class="mainFrame">
+                    <h5>HISTORY</h5>
+                </div>
+            </div>
+            <div class="mainFrame">
+                <div class="sectionContent">
+                    <div style="width: 100%; height: 260px; padding-bottom: 12px;">
+                        <div class="sectionCard">
+                            <div class="sectionCardTitle" style="color:#744bc9;">
+                                INTAKE HEATMAP
+                            </div>
+                            <div class="sectionCardContent">
+                                <div id="heatmapGraph" class="chartAbsolute"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 100%; height: 268px;">
+                        <div class="sectionCard" style="padding-bottom: 4px;">
+                            <div class="sectionCardTitle" style="color: #0066cd;">
+                                DAILY HISTORY
+                            </div>
+                            <div class="sectionCardContent">
+                                <div id="historyGraph" class="chartAbsolute"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="./js/crypto-js.min.js"></script>
+    <script src="./js/d3.min.js"></script>
+    <script src="./js/SmartCupTheme.js"></script>
+    <script>
+        var version = 'remote';
+
+        var themeData = getLightThemeData();
+        var safeArea = {
+            extraTop: 36,
+            top: 12,
+            left: 0,
+            right: 0,
+            bottom: 8,
+        };
+
+        var cachedData = null;
+        var flattenedData = [{t: (new Date()).getTime(), v: 0}];
+
+        function init() {
+            if (version === 'remote') {
+                $.ajax({
+                    type : 'POST',
+                    url: '/checkLogin',
+                    contentType : 'application/json',
+                }).then(function (res) {
+                    if (res.status === 'success') {
+
+                        // get and set username
+                        $('#usernameLbl').text(res.data.username);
+
+                        // setup logout button
+                        $('#signoutBtn').on('click', function () {
+                            $.ajax({
+                                type : 'POST',
+                                url: '/logout',
+                                contentType : 'application/json'
+                            }).then(function () {
+                                location.reload();
+                            });
+                        });
+
+                        setTheme(
+                            themeData, 
+                            safeArea
+                        );
+
+                        setupGraphs();
+                    } else if (res.status === 'fail') {
+                        location.reload();
+                    } else {
+                        throw '';
+                    }
+                }).catch(function (err) {
+                    $('#errorPage').show();
+                });
+            } else {
+                setTheme(
+                    themeData, 
+                    safeArea
+                );
+                $('#userSection').hide();
+
+                // wait until inappwebview protocol is ready
+                var waitForFlutter = function () {
+                    if (window.flutter_inappwebview) {
+                        setupGraphs();
+                    } else {
+                        setTimeout(waitForFlutter, 50);
+                    }
+                }
+                waitForFlutter();
+            }
+        }
+
+        // setup auto initialisation
+        var initTimeout = setTimeout(init, 300);
+
+        // api for the mobile app
+        function setLocal(newThemeData, newSafeArea) {
+            version = 'local';
+            themeData = newThemeData;
+            safeArea = newSafeArea;
+
+            // cancel auto initialisation
+            clearTimeout(initTimeout);
+            init();
+        }
+
+        function setupGraphs() {
+            try {
+                redraw();
+                $(window).on('resize', function () {
+                    redraw();
+                });
+
+                if (version === 'remote') {
+                    var pollFromServer = function () {
+                        $.ajax({
+                            type : 'POST',
+                            url: '/getWaterLog',
+                            contentType : 'application/json',
+                            data: JSON.stringify({
+                                syncHash: CryptoJS.SHA256(
+                                        JSON.stringify(cachedData)
+                                    ).toString(CryptoJS.enc.Hex)
+                            })
+                        }).then(function (res) {
+                            if (res.status === 'success') {
+                                if (res.data instanceof Object) {
+                                    waterLevelDataUpdated(res.data);
+                                }
+                                setTimeout(pollFromServer, 2 * 60000);
+                            } else if (res.status === 'fail') {
+                                if (res.reason === 'log out') {
+                                    location.reload();
+                                } else {
+                                    throw '';
+                                }
+                            } else {
+                                throw '';
+                            }
+                        }).catch(function (err) {
+                            setTimeout(pollFromServer, 5000);
+                        });
+                    }
+
+                    pollFromServer();
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        // random data
+        function waterLevelDataUpdated(newData) {
+            /*var data = [];
+            var startedTimestamp = new Date();
+            startedTimestamp.setHours(0,0,0,0);
+            startedTimestamp = startedTimestamp.getTime();
+
+            for (var i = 0; i < 2000; i++) {
+                startedTimestamp += Math.random() * 60 * 60 * 1000;
+
+                data.push({
+                    t: startedTimestamp,
+                    v: Math.random() * 90
+                });
+            }
+            newData = data;*/
+
+            cachedData = newData;
+
+            flattenedData = [];
+
+            for (var sensorId in newData) {
+                flattenedData = flattenedData.concat(newData[sensorId]);
+            }
+            flattenedData = flattenedData.sort(function (a, b) {
+                return a.t - b.t;
+            });
+
+            redraw();
+        }
+
+        function redraw() {
+            drawTodayGraph(flattenedData);
+            drawHeatmapGraph(flattenedData);
+            drawHistoryGraph(flattenedData);
+        }
+
+        function drawTodayGraph(data) {
+            var startOfTheDay = new Date();
+            startOfTheDay.setHours(0,0,0,0);
+            startOfTheDay = startOfTheDay.getTime();
+
+            var endOfTheDay = startOfTheDay + 24 * 60 * 60 * 1000;
+
+            var todayRecords = [];
+            var hour1Bins = [];
+            var hour2Bins = [];
+
+            for (var i = 0; i < 12; i++) {
+                hour1Bins[i] = 0;
+                hour2Bins[i] = 0;
+            }
+            for (var i = 12; i < 24; i++) {
+                hour1Bins[i] = 0;
+            }
+
+            for (var idx in data) {
+                var currentItem = data[idx];
+                if (currentItem.t >= startOfTheDay && currentItem.t < endOfTheDay) {
+                    todayRecords.push(currentItem);
+                }
+            }
+
+            var totalVol = 0;
+            var maxTimestamp = (new Date()).getTime();
+
+            for (var idx in todayRecords) {
+                var currentItem = todayRecords[idx];
+
+                var binIdx = Math.floor((currentItem.t - startOfTheDay) / (60 * 60 * 1000));
+                hour1Bins[binIdx] += currentItem.v;
+
+                binIdx = Math.floor((currentItem.t - startOfTheDay) / (2 * 60 * 60 * 1000));
+                hour2Bins[binIdx] += currentItem.v;
+
+                if (currentItem.t > maxTimestamp) {
+                    maxTimestamp = currentItem.t;
+                }
+                
+                totalVol += currentItem.v;
+            }
+
+            var averageVol = totalVol / (maxTimestamp - startOfTheDay) * 60 * 60 * 1000;
+
+
+            // update daily goal
+            {
+                var arcLength = 2 * Math.PI * 20;
+                var defaultGoal = 2000;
+                var progress = totalVol / defaultGoal;
+
+                var dailyGoalRingPath = d3.select('#dailyGoalRingPath')
+                    .attr('stroke-dasharray', (progress * arcLength) + ' ' + arcLength);
+
+                if (progress >= 1) {
+                    dailyGoalRingPath.attr('filter', 'url(#dailyGoalRingGlow)');
+                } else {
+                    dailyGoalRingPath.attr('filter', '');
+                }
+
+                d3.select('#dailyGoalRingPercent')
+                    .text(Math.round(progress * 100) + '%');
+
+                d3.select('#dailyGoalRingLitre')
+                    .text((totalVol / 1000).toFixed(1) + '/' + (defaultGoal / 1000).toFixed(1) + 'L');
+            }
+
+            // update average
+            {
+                d3.select('#averageLitreHour')
+                    .text(Math.round(averageVol));
+            }
+
+            // update hourly stats
+            {
+                var jElem = $('#hourlyIntakeStats');
+                var margin = {top: 12, left: 56, right: 28, bottom: 20};
+
+                var height = jElem.height();
+                var width = jElem.width();
+
+                var hourlyBins = hour1Bins;
+                var hourlyTicks = [2, 8, 15, 21];
+                var tickMultiplier = 1;
+
+                if (width < 450) {
+                    hourlyBins = hour2Bins;
+                    hourlyTicks = [1, 4, 7, 10];
+                    tickMultiplier = 2;
+                }
+
+
+                var x = d3.scaleBand()
+                    .domain(d3.range(hourlyBins.length))
+                    .range([margin.left, width - margin.right])
+                    .padding(0.15);
+
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(hourlyBins)]).nice()
+                    .range([height - margin.bottom, margin.top]);
+
+                var xAxis = function (g, x) {
+                    return g.attr("transform", 'translate(0,' + (height - margin.bottom) + ')')
+                        .attr('class', 'chartAxis')
+                        .call(
+                            d3.axisBottom(x)
+                                .tickValues(hourlyTicks)
+                                .tickFormat(function (i) {
+                                    return i * tickMultiplier + 'h';
+                                })
+                                .tickSizeOuter(0)
+                        )
+                        .call(function (g) {
+                            return g.selectAll(".tick line")
+                                .attr("opacity", 0.2);
+                        })
+                        .select(".domain").remove();
+                };
+
+               var yAxis = function (g, y) {
+                    var ticks = y.ticks((height - margin.top - margin.bottom) / 30);
+
+                    ticks.shift()
+                    if (ticks.length > 2) {
+                        ticks.pop();
+                    }
+
+                    ticks = ticks.concat((y.domain())[1]);
+
+                    return g.attr("transform", 'translate(' + margin.left + ',0)')
+                        .attr('class', 'chartAxis')
+                        .call(d3.axisLeft(y).tickValues(ticks).tickFormat(function (d) {
+                            return Math.round(d) + 'ML';
+                        }))
+                        .call(function (g) {return g.select(".domain").remove()})
+                        .call(function (g) {
+                            return g.selectAll(".tick line")
+                                .attr("x2", width - margin.left - margin.right)
+                                .attr("opacity", 0.2);
+                        });
+                };
+
+                function arc (r, sign) {
+                    return r ? `a${r * sign[0]},${r * sign[1]} 0 0 1 ${r * sign[2]},${r * sign[3]}` : "";
+                }
+
+                function roundedRect(x, y, width, height, r) {
+                    r = [Math.min(r[0], height, width),
+                        Math.min(r[1], height, width),
+                        Math.min(r[2], height, width),
+                        Math.min(r[3], height, width)];
+
+                    return `M${x + r[0]},${y
+                    }h${width - r[0] - r[1]}${arc(r[1], [1, 1, 1, 1])
+                    }v${height - r[1] - r[2]}${arc(r[2], [1, 1, -1, 1])
+                    }h${-width + r[2] + r[3]}${arc(r[3], [1, 1, -1, -1])
+                    }v${-height + r[3] + r[0]}${arc(r[0], [1, 1, 1, -1])
+                    }z`;
+                }
+
+                var svg = d3.select('#hourlyStatsSvg');
+                var gx;
+                var gy;
+                var gd;
+
+                if (svg.empty()) {
+                    svg = d3.create("svg")
+                        .attr('id', 'hourlyStatsSvg');
+
+                    gx = svg.append('g')
+                        .attr('id', 'hourlyStatsGx');
+
+                    gy = svg.append('g')
+                        .attr('id', 'hourlyStatsGy');
+
+                    gd = svg.append('g')
+                        .attr('id', 'hourlyStatsGd');
+
+                    jElem.append(svg.node());
+                } else {
+                    gx = svg.select('#hourlyStatsGx');
+                    gy = svg.select('#hourlyStatsGy');
+                    gd = svg.select('#hourlyStatsGd');
+                }
+
+                gx.call(xAxis, x);
+                gy.call(yAxis, y);
+
+                var width = x.bandwidth();
+                var widthOffset = 0;
+
+                if (width > 12) {
+                    widthOffset = (width - 12) / 2;
+                    width = 12;
+                }
+
+                var bars = gd.selectAll('path')
+                    .data(hourlyBins);
+
+                bars.enter()
+                    .append('path')
+                    .attr('fill', '#a54800')
+                    .attr('opacity', 0.85)
+                    .attr('d', function (d, i) {
+                        var yd = y(d);
+                        return roundedRect(x(i) + widthOffset, yd, width, y(0) - yd, [4, 4, 4, 4]);
+                    });
+
+                bars.attr('d', function (d, i) {
+                    var yd = y(d);
+                    return roundedRect(x(i) + widthOffset, yd, width, y(0) - yd, [4, 4, 4, 4]);
+                });
+
+                bars.exit()
+                    .remove();
+            }
+        }
+
+        function drawHeatmapGraph(data) {
+
+            var timezoneOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
+
+            var startOfHistory = new Date(data[0].t);
+            startOfHistory.setHours(0,0,0,0);
+            startOfHistory = startOfHistory.getTime();
+
+            var numOfDays = Math.ceil((data[data.length - 1].t - startOfHistory) / (24 * 60 * 60 * 1000));
+
+            var tileData = [];
+
+            {
+                var dayBins = [];
+
+                for (var idx = 0; idx < numOfDays; idx++) {
+                    dayBins[idx] = {
+                        d: new Date(startOfHistory - timezoneOffset + (idx * 24 * 60 * 60 * 1000)),
+                        vs: []
+                    }
+
+                    for (var idx2 = 0; idx2 < 24; idx2++) {
+                        dayBins[idx].vs[idx2] = 0;
+                    }
+                }
+
+                for (var idx in data) {
+                    var currentItem = data[idx];
+                    var binIdx = Math.floor((currentItem.t - startOfHistory) / (24 * 60 * 60 * 1000));
+                    var bin2Idx = Math.floor(((currentItem.t - startOfHistory) % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                    dayBins[binIdx].vs[bin2Idx] += currentItem.v;
+                }
+
+                for (var idx in dayBins) {
+                    for (var idx2 = 0; idx2 < 24; idx2++) {
+                        tileData.push({
+                            d: dayBins[idx].d,
+                            bin: idx2,
+                            v: dayBins[idx].vs[idx2]
+                        })
+                    }
+                }
+            }
+
+            
+            var jElem = $('#heatmapGraph');
+
+            var margin = {top: 8, left: 42, right: 20, bottom: 32};
+            var scrollbarMarginBottom = 24;
+            var scrollbarHeight = 30;
+
+            var height = jElem.height();
+            var width = jElem.width();
+
+            var x = d3.scaleUtc()
+                .domain([
+                    new Date(startOfHistory - timezoneOffset),
+                    new Date(startOfHistory - timezoneOffset + (numOfDays * 24 * 60 * 60 * 1000))
+                ])
+                .range([margin.left, width - margin.right]);
+
+            var y = d3.scaleLinear()
+                .domain([24 * 60 * 60 * 1000, 0]).nice()
+                .range([height - margin.bottom, margin.top + scrollbarMarginBottom + scrollbarHeight]);
+
+            var yPrev = d3.scaleLinear()
+                .domain([24 * 60 * 60 * 1000, 0]).nice()
+                .range([scrollbarHeight + margin.top, margin.top]);
+
+            var yPrev = d3.scaleLinear()
+                .domain([24 * 60 * 60 * 1000, 0]).nice()
+                .range([scrollbarHeight + margin.top, margin.top]);
+
+            var formatTimeBD = d3.timeFormat("%b %d");
+            var formatTimeY = d3.timeFormat("%Y");
+
+            var xAxis = function (g, x) {
+                return g.attr("transform", 'translate(0,' + (height - margin.bottom) + ')')
+                    .attr('class', 'chartAxis')
+                    .call(
+                        d3.axisBottom(x)
+                            .ticks(width / 120)
+                            .tickSizeOuter(0)
+                    )
+                    .call(function (g) {return g.select(".domain").remove()})
+                    .call(function (g) {
+                            return g.selectAll(".tick line")
+                                .attr("opacity", 0.5);
+                        })
+                    .call(function (g) {
+                        var ticks = g.selectAll('.tick');
+
+                        ticks.attr('opacity', function (d) {
+                                var tickX = x(d) - margin.left;
+                                var axisWidth = width - margin.left - margin.right;
+
+                                if (tickX < 60) {
+                                    return tickX / 60;
+                                } else if (tickX > axisWidth - 60) {
+                                    return 1 - (tickX - (axisWidth - 60)) / 60;
+                                }
+                            });
+
+                        var yearLbl = ticks.select('.yearLbl');
+
+                        ticks.each(function (d) {
+                            var currentTick = d3.select(this);
+                            var yearLbl = currentTick.select('.yearLbl');
+
+                            if (yearLbl.empty()) {
+                                yearLbl = currentTick.append('text')
+                                    .attr('class', 'yearLbl')
+                                    .attr('dy', '0.71em')
+                                    .attr('y', '20')
+                                    .attr('font-size', '10')
+                                    .attr('fill', 'currentColor');
+                            }
+                            yearLbl.text(formatTimeY(d));
+                        });
+                    });
+            };
+
+            var yAxis = function (g, y) {
+                var ticks = [
+                    3 * 60 * 60 * 1000, 
+                    9 * 60 * 60 * 1000,
+                    15 * 60 * 60 * 1000,
+                    21 * 60 * 60 * 1000
+                ];
+
+                return g.attr("transform", 'translate(' + margin.left + ',0)')
+                    .attr('class', 'chartAxis')
+                    .call(d3.axisLeft(y)
+                .tickValues(ticks).tickFormat(function (d) {
+                        return Math.round(d / 1000 / 60 / 60) + 'h';
+                    }))
+                    .call(function (g) {return g.select(".domain").remove()})
+                    .call(function (g) {
+                            return g.selectAll(".tick line")
+                                .remove();
+                        });
+            };
+
+            var svg = d3.select('#heatmapSvg');
+            var heatmapGraphPreview;
+            var heatmapGraphPreviewBg;
+            var heatmapGraphPreviewTiles;
+            var heatmapGraphPreviewLeftClip;
+            var heatmapGraphPreviewRightClip;
+            var heatmapGraphMain;
+            var heatmapGraphBg;
+            var heatmapGraphTiles;
+            var heatmapGraphGx;
+            var heatmapGraphGy;
+            var heatmapGraphGyBgLeft;
+            var heatmapGraphGyBgRight;
+
+            if (svg.empty()) {
+                svg = d3.create("svg")
+                    .attr("id", 'heatmapSvg');
+
+                heatmapGraphPreview = svg.append("g")
+                    .attr("id", 'heatmapGraphPreview');
+
+                heatmapGraphPreviewBg = heatmapGraphPreview.append('rect')
+                    .attr("id", 'heatmapGraphPreviewBg')
+                    .attr("fill", "rgba(0,0,0,0)");
+
+                heatmapGraphPreviewTiles = heatmapGraphPreview.append("g")
+                    .attr("id", 'heatmapGraphPreviewTiles');
+
+                heatmapGraphPreviewLeftClip = heatmapGraphPreview.append("rect")
+                    .attr("id", 'heatmapGraphPreviewLeftClip')
+                    .attr("class", "chartAxis")
+                    .attr("x", margin.left)
+                    .attr("y", margin.top)
+                    .attr("width", 0)
+                    .attr("height", scrollbarHeight);
+
+                heatmapGraphPreviewRightClip = heatmapGraphPreview.append("rect")
+                    .attr("id", 'heatmapGraphPreviewRightClip')
+                    .attr("class", "chartAxis")
+                    .attr("x", width - margin.right)
+                    .attr("y", margin.top)
+                    .attr("width", 0)
+                    .attr("height", scrollbarHeight);
+
+                heatmapGraphMain = svg.append("g")
+                    .attr("id", 'heatmapGraphMain');
+
+                heatmapGraphBg = heatmapGraphMain.append('rect')
+                    .attr("id", 'heatmapGraphBg')
+                    .attr("fill", "rgba(0,0,0,0)");
+
+                heatmapGraphTiles = heatmapGraphMain.append("g")
+                    .attr("id", 'heatmapGraphTiles');
+
+                heatmapGraphGx = heatmapGraphMain.append("g")
+                    .attr("id", 'heatmapGraphGx');
+
+                heatmapGraphGy = heatmapGraphMain.append("g")
+                    .attr("id", 'heatmapGraphGy');
+
+                heatmapGraphGyBgLeft = heatmapGraphGy.append("rect")
+                    .attr("id", 'heatmapGraphGyBgLeft');
+
+                heatmapGraphGyBgRight = heatmapGraphGy.append("rect")
+                    .attr("id", 'heatmapGraphGyBgRight');
+
+                jElem.append(svg.node());
+            } else {
+                heatmapGraphPreview = svg.select('#heatmapGraphPreview');
+                heatmapGraphPreviewBg = svg.select('#heatmapGraphPreviewBg');
+                heatmapGraphPreviewTiles = svg.select('#heatmapGraphPreviewTiles');
+                heatmapGraphPreviewLeftClip = svg.select('#heatmapGraphPreviewLeftClip');
+                heatmapGraphPreviewRightClip = svg.select('#heatmapGraphPreviewRightClip');
+                heatmapGraphMain = svg.select('#heatmapGraphMain');
+                heatmapGraphBg = svg.select('#heatmapGraphBg');
+                heatmapGraphTiles = svg.select('#heatmapGraphTiles');
+                heatmapGraphGx = svg.select('#heatmapGraphGx');
+                heatmapGraphGy = svg.select('#heatmapGraphGy');
+                heatmapGraphGyBgLeft = svg.select('#heatmapGraphGyBgLeft');
+                heatmapGraphGyBgRight = svg.select('#heatmapGraphGyBgRight');
+            }
+
+            function refresh(tileContainer, _colourRange, _x, _y) {
+                function updateTile(tiles) {
+                    tiles.attr('fill', function (d) {
+                        var val = 1;
+
+                        if (d.v < 200) {
+                            val = d.v / 200;
+                        }
+
+                        return _colourRange(val);
+                    })
+                    .attr('x', function (d) {
+                        return _x(d.d);
+                    })
+                    .attr('y', function (d) {
+                        return _y(d.bin * 60 * 60 * 1000);
+                    })
+                    .attr('width', function (d) {
+                        return _x(new Date(d.d.getTime() + 24 * 60 * 60 * 1000)) - _x(d.d);
+                    })
+                    .attr('height', function (d) {
+                        return _y((d.bin + 1) * 60 * 60 * 1000) - _y(d.bin * 60 * 60 * 1000);
+                    });
+                }
+
+                var tileGroups = tileContainer.selectAll('rect')
+                    .data(tileData);
+
+                updateTile(tileGroups.enter().append('rect'));
+                updateTile(tileGroups);
+
+                tileGroups.exit()
+                    .remove();
+            }
+
+            //var colourRange = d3.interpolateRgb('rgba(116,75,201, 0)', 'rgba(116,75,201, 1)');
+            var colourRange = d3.interpolateRgb('rgba(103,58,183, 0.1)', 'rgba(103,58,183,0.85)');
+
+            svg.attr("viewBox", [0, 0, width, height]);
+
+            heatmapGraphGx.call(xAxis, x);
+
+            heatmapGraphPreviewBg.attr("transform", 'translate(' + margin.left + ',' + margin.top + ')')
+                .attr("width", width - margin.left - margin.right)
+                .attr("height", scrollbarHeight);
+
+            heatmapGraphBg.attr("transform", 'translate(' + margin.left + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", width - margin.left - margin.right)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight);
+
+            heatmapGraphGyBgLeft.attr("transform", 'translate(' + -margin.left + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", margin.left)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight)
+                .attr("class", "chartAxis");
+
+            heatmapGraphGyBgRight.attr("transform", 'translate(' + (width - margin.left - margin.right) + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", margin.right)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight)
+                .attr("class", "chartAxis");
+
+            heatmapGraphGy.call(yAxis, y);
+
+            refresh(heatmapGraphPreviewTiles, colourRange, x, yPrev);
+
+            var zoom = d3.zoom()
+                .scaleExtent([1, 32])
+                .extent([[margin.left, 0], [width - margin.right, height]])
+                .translateExtent([[margin.left, -Infinity], [width - margin.right, Infinity]])
+                .on("zoom", function (event) {
+                    var transform = event.transform;
+                    var xz = transform.rescaleX(x);
+
+                    var startX = margin.left;
+                    var endX = width - margin.right;
+                    var rectWidth = endX - startX;
+
+                    var selStartX = transform.invertX(startX);
+                    var selEndX = transform.invertX(endX);
+
+                    var selLeftWidth = (selStartX - startX);
+                    var selRightWidth = (endX - selEndX);
+
+                    if (selLeftWidth < 0) {selLeftWidth = 0;}
+                    if (selRightWidth < 0) {selRightWidth = 0;}
+
+                    heatmapGraphPreviewLeftClip.attr('width', selLeftWidth);
+                    heatmapGraphPreviewRightClip.attr('x', width - margin.right - selRightWidth);
+                    heatmapGraphPreviewRightClip.attr('width', selRightWidth);
+
+                    refresh(heatmapGraphTiles, colourRange, xz, y);
+                    heatmapGraphGx.call(xAxis, xz);
+                });
+
+            // update zoom level
+            {
+                var oldSelLeftWidth = parseFloat(heatmapGraphPreviewLeftClip.attr('width'));
+                var oldSelRightX = parseFloat(heatmapGraphPreviewRightClip.attr('x'));
+                var oldSelRightWidth = parseFloat(heatmapGraphPreviewRightClip.attr('width'));
+                var oldWidth = oldSelRightX + oldSelRightWidth - margin.left;
+                var newWidth = width - margin.left - margin.right;
+                var oldScale = oldWidth / (oldWidth - oldSelLeftWidth - oldSelRightWidth);
+
+                heatmapGraphMain.call(zoom)
+                    .call(
+                        zoom.transform, 
+                        d3.zoomIdentity
+                            .translate(margin.left, 0)
+                            .scale(oldScale)
+                            .translate(-((oldSelLeftWidth * (newWidth / oldWidth)) + margin.left), 0)
+                    )
+                    .transition()
+                    .duration(500);
+            }
+
+            var selChanged = function (posX) {
+                var transform = d3.zoomTransform(heatmapGraphMain.node());
+
+                var startX = margin.left;
+                var endX = width - margin.right;
+                var rectWidth = endX - startX;
+
+                var selStartX = transform.invertX(startX);
+                var selEndX = transform.invertX(endX);
+
+                var selWidth = selEndX - selStartX;
+                var selWidthD2 = selWidth / 2;
+
+                if (posX - selWidthD2 < margin.left) {
+                    selStartX = margin.left;
+                    selEndX = selStartX + selWidth;
+                } else if (posX + selWidthD2 > width - margin.right) {
+                    selEndX = width - margin.right;
+                    selStartX = selEndX - selWidth;
+                } else {
+                    selStartX = posX - selWidthD2;
+                    selEndX = selStartX + selWidth;
+                }
+                
+                heatmapGraphMain
+                    .call(
+                        zoom.transform, 
+                        d3.zoomIdentity
+                            .translate(margin.left, 0)
+                            .scale(transform.k)
+                            .translate(-selStartX, 0)
+                    );
+            }
+
+            var drag = d3.drag()
+                .on("start", function (event) {
+                    selChanged(event.x);
+                })
+                .on("drag", function (event) {
+                    selChanged(event.x);
+                });
+
+            heatmapGraphPreview.call(drag);
+
+            {
+                var eventListeners = {};
+                var eventHook = {
+                    property: function () {
+                        return eventHook;
+                    },
+                    on: function (n, fn) {
+                        eventListeners[n] = fn;
+                        return eventHook;
+                    },
+                    style: function () {
+                        return eventHook;
+                    },
+                    filter: function () {
+                        return eventHook;
+                    }
+                };
+                zoom(eventHook);
+                drag(eventHook);
+
+                heatmapGraphMain.on('touchstart.zoom', function (event) {
+                    if (d3.zoomTransform(this).k > 1 || event.touches.length > 1) {
+                        eventListeners['touchstart.zoom'].apply(this, [event]);
+                    }
+                });
+                
+                heatmapGraphPreview.on('touchstart.drag', function (event) {
+                    if (d3.zoomTransform(heatmapGraphMain.node()).k > 1) {
+                        eventListeners['touchstart.drag'].apply(this, [event]);
+                    }
+                });
+            }
+        }
+
+        function drawHistoryGraph(data) {
+
+            var timezoneOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
+
+            var startOfHistory = new Date(data[0].t);
+            startOfHistory.setHours(0,0,0,0);
+            startOfHistory = startOfHistory.getTime();
+
+            var numOfDays = Math.ceil((data[data.length - 1].t - startOfHistory) / (24 * 60 * 60 * 1000));
+
+            var dayBins = [];
+
+            for (var idx = 0; idx < numOfDays; idx++) {
+                dayBins[idx] = {
+                    d: new Date(startOfHistory - timezoneOffset + (idx * 24 * 60 * 60 * 1000)),
+                    v: 0
+                }
+            }
+
+            for (var idx in data) {
+                var currentItem = data[idx];
+                var binIdx = Math.floor((currentItem.t - startOfHistory) / (24 * 60 * 60 * 1000));
+                dayBins[binIdx].v += currentItem.v;
+            }
+
+            if (numOfDays === 1) {
+                dayBins[1] = {
+                    v: dayBins[0].v,
+                    d: startOfHistory + (24 * 60 * 60 * 1000)
+                }
+            }
+
+            var jElem = $('#historyGraph');
+            
+            var margin = {top: 8, left: 42, right: 20, bottom: 32};
+            var scrollbarMarginBottom = 24;
+            var scrollbarHeight = 30;
+
+            var height = jElem.height();
+            var width = jElem.width();
+
+            var x = d3.scaleUtc()
+                .domain(d3.extent(dayBins, function (d) {
+                    return d.d;
+                }))
+                .range([margin.left, width - margin.right]);
+
+            var y = d3.scaleLinear()
+                .domain([0, d3.max(dayBins, function (d) {return d.v;})]).nice()
+                .range([height - margin.bottom, margin.top + scrollbarMarginBottom + scrollbarHeight]);
+
+            var yPrev = d3.scaleLinear()
+                .domain([0, d3.max(dayBins, function (d) {return d.v;})]).nice()
+                .range([scrollbarHeight + margin.top, margin.top]);
+
+            var formatTimeBD = d3.timeFormat("%b %d");
+            var formatTimeY = d3.timeFormat("%Y");
+
+            var xAxis = function (g, x) {
+                return g.attr("transform", 'translate(0,' + (height - margin.bottom) + ')')
+                    .attr('class', 'chartAxis')
+                    .call(
+                        d3.axisBottom(x)
+                            .ticks(width / 120)
+                            .tickFormat(function (d) {
+                                return formatTimeBD(d);
+                            })
+                            .tickSizeOuter(0)
+                    )
+                    .call(function (g) {return g.select(".domain").remove()})
+                    .call(function (g) {
+                        return g.selectAll(".tick line")
+                            .attr("opacity", 0.5);
+                    })
+                    .call(function (g) {
+                        var ticks = g.selectAll('.tick');
+
+                        ticks.attr('opacity', function (d) {
+                                var tickX = x(d) - margin.left;
+                                var axisWidth = width - margin.left - margin.right;
+
+                                if (tickX < 60) {
+                                    return tickX / 60;
+                                } else if (tickX > axisWidth - 60) {
+                                    return 1 - (tickX - (axisWidth - 60)) / 60;
+                                }
+                            });
+
+                        var yearLbl = ticks.select('.yearLbl');
+
+                        ticks.each(function (d) {
+                            var currentTick = d3.select(this);
+                            var yearLbl = currentTick.select('.yearLbl');
+
+                            if (yearLbl.empty()) {
+                                yearLbl = currentTick.append('text')
+                                    .attr('class', 'yearLbl')
+                                    .attr('dy', '0.71em')
+                                    .attr('y', '20')
+                                    .attr('font-size', '10')
+                                    .attr('fill', 'currentColor');
+                            }
+                            yearLbl.text(formatTimeY(d));
+                        });
+                    });
+            };
+
+            var yAxis = function (g, y) {
+                var ticks = y.ticks((height - margin.top - margin.bottom) / 48);
+
+                ticks.shift()
+                if (ticks.length > 2) {
+                    ticks.pop();
+                }
+
+                ticks = ticks.concat((y.domain())[1]);
+
+                return g.attr("transform", 'translate(' + margin.left + ',0)')
+                    .attr('class', 'chartAxis')
+                    .call(d3.axisLeft(y)
+                .tickValues(ticks).tickFormat(function (d) {
+                        return (d / 1000).toFixed(1) + 'L';
+                    }))
+                    .call(function (g) {return g.select(".domain").remove()})
+                    .call(function (g) {
+                            return g.selectAll(".tick line")
+                                .attr("x2", width - margin.left - margin.right)
+                                .attr("opacity", 0.15);
+                        });
+            };
+
+            var area = function (dayBins, _x, _y) {
+                var ret = (
+                    d3.area()
+                        .curve(d3.curveLinear)
+                        .x(function (d) {return _x(d.d);})
+                        .y0(_y(0))
+                        .y1(function (d) {return _y(d.v);})
+                ) (dayBins);
+
+                return ret;
+            };
+
+            
+            var svg = d3.select('#historyGraphSvg');
+            var historyGraphPreview;
+            var historyGraphPreviewBg;
+            var historyGraphPreviewPath;
+            var historyGraphPreviewLeftClip;
+            var historyGraphPreviewRightClip;
+            var historyGraphMain;
+            var historyGraphBg;
+            var historyGraphPath;
+            var historyGraphGx;
+            var historyGraphGy;
+            var historyGraphGyBgLeft;
+            var historyGraphGyBgRight;
+
+            if (svg.empty()) {
+                svg = d3.create("svg")
+                    .attr("id", 'historyGraphSvg');
+
+                historyGraphPreview = svg.append("g")
+                    .attr("id", 'historyGraphPreview');
+
+                historyGraphPreviewBg = historyGraphPreview.append('rect')
+                    .attr("id", 'historyGraphPreviewBg')
+                    .attr("fill", "rgba(0,0,0,0)");
+
+                historyGraphPreviewPath = historyGraphPreview.append("path")
+                    .attr("id", 'historyGraphPreviewPath')
+                    .attr('opacity', 0.85)
+                    .attr("fill", "#0066cd");
+
+                historyGraphPreviewLeftClip = historyGraphPreview.append("rect")
+                    .attr("id", 'historyGraphPreviewLeftClip')
+                    .attr("class", "chartAxis")
+                    .attr("x", margin.left)
+                    .attr("y", margin.top)
+                    .attr("width", 0)
+                    .attr("height", scrollbarHeight);
+
+                historyGraphPreviewRightClip = historyGraphPreview.append("rect")
+                    .attr("id", 'historyGraphPreviewRightClip')
+                    .attr("class", "chartAxis")
+                    .attr("x", width - margin.right)
+                    .attr("y", margin.top)
+                    .attr("width", 0)
+                    .attr("height", scrollbarHeight);
+
+                historyGraphMain = svg.append("g")
+                    .attr("id", 'historyGraphMain');
+
+                historyGraphBg = historyGraphMain.append('rect')
+                    .attr("id", 'historyGraphBg')
+                    .attr("fill", "rgba(0,0,0,0)");
+
+                historyGraphPath = historyGraphMain.append("path")
+                    .attr("id", 'historyGraphPath')
+                    .attr("clip-path", 'url(#historyGraphClip)')
+                    .attr('opacity', 0.85)
+                    .attr("fill", "#0066cd");
+
+                historyGraphGx = historyGraphMain.append("g")
+                    .attr("id", 'historyGraphGx');
+
+                historyGraphGy = historyGraphMain.append("g")
+                    .attr("id", 'historyGraphGy');
+
+                historyGraphGyBgLeft = historyGraphGy.append("rect")
+                    .attr("id", 'historyGraphGyBgLeft');
+
+                historyGraphGyBgRight = historyGraphGy.append("rect")
+                    .attr("id", 'historyGraphGyBgRight');
+
+                jElem.append(svg.node());
+            } else {
+                historyGraphPreview = svg.select('#historyGraphPreview');
+                historyGraphPreviewBg = svg.select('#historyGraphPreviewBg');
+                historyGraphPreviewPath = svg.select('#historyGraphPreviewPath');
+                historyGraphPreviewLeftClip = svg.select('#historyGraphPreviewLeftClip');
+                historyGraphPreviewRightClip = svg.select('#historyGraphPreviewRightClip');
+                historyGraphMain = svg.select('#historyGraphMain');
+                historyGraphBg = svg.select('#historyGraphBg');
+                historyGraphPath = svg.select('#historyGraphPath');
+                historyGraphGx = svg.select('#historyGraphGx');
+                historyGraphGy = svg.select('#historyGraphGy');
+                historyGraphGyBgLeft = svg.select('#historyGraphGyBgLeft');
+                historyGraphGyBgRight = svg.select('#historyGraphGyBgRight');
+            }
+
+            svg.attr("viewBox", [0, 0, width, height]);
+
+            historyGraphPreviewPath.attr("d", area(dayBins, x, yPrev));
+
+            historyGraphPath.attr("d", area(dayBins, x, y));
+
+            historyGraphGx.call(xAxis, x);
+
+            historyGraphPreviewBg.attr("transform", 'translate(' + margin.left + ',' + margin.top + ')')
+                .attr("width", width - margin.left - margin.right)
+                .attr("height", scrollbarHeight);
+
+            historyGraphBg.attr("transform", 'translate(' + margin.left + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", width - margin.left - margin.right)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight);
+
+            historyGraphGyBgLeft.attr("transform", 'translate(' + -margin.left + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", margin.left)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight)
+                .attr("class", "chartAxis");
+
+            historyGraphGyBgRight.attr("transform", 'translate(' + (width - margin.left - margin.right) + ',' + (margin.top + scrollbarMarginBottom + scrollbarHeight) + ')')
+                .attr("width", margin.right)
+                .attr("height", height - margin.bottom - scrollbarMarginBottom - scrollbarHeight)
+                .attr("class", "chartAxis");
+
+            historyGraphGy.call(yAxis, y);
+
+
+            var zoom = d3.zoom()
+                .scaleExtent([1, 32])
+                .extent([[margin.left, 0], [width - margin.right, height]])
+                .translateExtent([[margin.left, -Infinity], [width - margin.right, Infinity]])
+                .on("zoom", function (event) {
+                    var transform = event.transform;
+                    var xz = transform.rescaleX(x);
+
+                    var startX = margin.left;
+                    var endX = width - margin.right;
+                    var rectWidth = endX - startX;
+
+                    var selStartX = transform.invertX(startX);
+                    var selEndX = transform.invertX(endX);
+
+                    var selLeftWidth = (selStartX - startX);
+                    var selRightWidth = (endX - selEndX);
+
+                    if (selLeftWidth < 0) {selLeftWidth = 0;}
+                    if (selRightWidth < 0) {selRightWidth = 0;}
+
+                    historyGraphPreviewLeftClip.attr('width', selLeftWidth);
+                    historyGraphPreviewRightClip.attr('x', width - margin.right - selRightWidth);
+                    historyGraphPreviewRightClip.attr('width', selRightWidth);
+
+                    historyGraphPath.attr("d", area(dayBins, xz, y));
+                    historyGraphGx.call(xAxis, xz);
+                });
+
+            // update zoom level
+            {
+                var oldSelLeftWidth = parseFloat(historyGraphPreviewLeftClip.attr('width'));
+                var oldSelRightX = parseFloat(historyGraphPreviewRightClip.attr('x'));
+                var oldSelRightWidth = parseFloat(historyGraphPreviewRightClip.attr('width'));
+                var oldWidth = oldSelRightX + oldSelRightWidth - margin.left;
+                var newWidth = width - margin.left - margin.right;
+                var oldScale = oldWidth / (oldWidth - oldSelLeftWidth - oldSelRightWidth);
+
+                historyGraphMain.call(zoom)
+                    .call(
+                        zoom.transform, 
+                        d3.zoomIdentity
+                            .translate(margin.left, 0)
+                            .scale(oldScale)
+                            .translate(-((oldSelLeftWidth * (newWidth / oldWidth)) + margin.left), 0)
+                    )
+                    .transition()
+                    .duration(500);
+            }
+
+            var selChanged = function (posX) {
+                var transform = d3.zoomTransform(historyGraphMain.node());
+
+                var startX = margin.left;
+                var endX = width - margin.right;
+                var rectWidth = endX - startX;
+
+                var selStartX = transform.invertX(startX);
+                var selEndX = transform.invertX(endX);
+
+                var selWidth = selEndX - selStartX;
+                var selWidthD2 = selWidth / 2;
+
+                if (posX - selWidthD2 < margin.left) {
+                    selStartX = margin.left;
+                    selEndX = selStartX + selWidth;
+                } else if (posX + selWidthD2 > width - margin.right) {
+                    selEndX = width - margin.right;
+                    selStartX = selEndX - selWidth;
+                } else {
+                    selStartX = posX - selWidthD2;
+                    selEndX = selStartX + selWidth;
+                }
+                
+                historyGraphMain
+                    .call(
+                        zoom.transform, 
+                        d3.zoomIdentity
+                            .translate(margin.left, 0)
+                            .scale(transform.k)
+                            .translate(-selStartX, 0)
+                    );
+            }
+
+            var drag = d3.drag()
+                .on("start", function (event) {
+                    selChanged(event.x);
+                })
+                .on("drag", function (event) {
+                    selChanged(event.x);
+                });
+
+            historyGraphPreview.call(drag);
+
+            {
+                var eventListeners = {};
+                var eventHook = {
+                    property: function () {
+                        return eventHook;
+                    },
+                    on: function (n, fn) {
+                        eventListeners[n] = fn;
+                        return eventHook;
+                    },
+                    style: function () {
+                        return eventHook;
+                    },
+                    filter: function () {
+                        return eventHook;
+                    }
+                };
+                zoom(eventHook);
+                drag(eventHook);
+
+                historyGraphMain.on('touchstart.zoom', function (event) {
+                    if (d3.zoomTransform(this).k > 1 || event.touches.length > 1) {
+                        eventListeners['touchstart.zoom'].apply(this, [event]);
+                    }
+                });
+                
+                historyGraphPreview.on('touchstart.drag', function (event) {
+                    if (d3.zoomTransform(historyGraphMain.node()).k > 1) {
+                        eventListeners['touchstart.drag'].apply(this, [event]);
+                    }
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SmartCup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+<meta name="HandheldFriendly" content="true">
+<link rel="stylesheet" href="./css/roboto.css">
+<link rel="stylesheet" href="./css/SmartCupTheme.css">
+<style>
+    .mainFrame {
+        max-width: 600px;
+    }
+    .loginInput {
+        border-radius: 8px;
+        box-sizing: border-box;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        cursor: text;
+        margin-bottom: 24px;
+    }
+    .loginInput input[type=text],
+    .loginInput input[type=password] {
+        border: none;
+        font-weight: 500;
+        font-size: 16px;
+        width: 100%;
+        background-color: transparent;
+        line-height: 36px;
+    }
+    .loginInput .error {
+        font-size: 12px;
+        color: #ff0000;
+    }
+    .loginBtn {
+        border-radius: 8px;
+        width: 100%;
+        text-align: center;
+        line-height: 56px;
+        cursor: pointer;
+        margin-bottom: 36px;
+    }
+    .loginBtn.disabled{
+        opacity: 0.5;
+        cursor: wait;
+    }
+</style>
+</head>
+<body>
+    <div class="mainTitleContainer">
+        <div class="mainFrame">
+            <h6>Sign In</h6>
+        </div>
+    </div>
+    <div class="main">
+        <div class="unsafeLeftRight backgroundColorBg notice primaryColorText">
+            <div class="mainFrame">
+                <div class="sectionContent">
+                    <div class="primaryColorText" style="font-weight: 300; font-size: 20px; padding-bottom: 16px;">
+                        You haven't signed in yet!
+                    </div>
+                    <div class="primaryColorText" style="font-weight: 500; font-size: 14px; padding-bottom: 16px; text-align: justify;">
+                        You need to sign in to your SmartCup account to access the online dashboard.
+                    </div>
+                    <div class="primaryColorText" style="font-weight: 500; font-size: 14px; text-align: justify;">
+                        If you don't have a SmartCup account, the system will create one for you.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mainFrame">
+            <div class="content">
+                <div class="section">
+                    <div class="sectionContent" style="padding-top: 24px;">
+                        <div class="loginInput backgroundColorBg primaryColorText">
+                            <div class="labelStyle">Email address</div>
+                            <input id="username" type="text" class="primaryColorText" maxlength="255">
+                            <div id="usernameError" class="error"></div>
+                        </div>
+                        <div class="loginInput backgroundColorBg primaryColorText">
+                            <div class="labelStyle" maxlength="24">Password</div>
+                            <input id="password" type="password" class="primaryColorText">
+                            <div id="passwordError" class="error"></div>
+                        </div>
+                        <div id="loginBtn" class="loginBtn primaryColorBg button">
+                            Continue
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="./js/SmartCupTheme.js"></script>
+    <script src="./js/SmartCupTheme.js"></script>
+    <script>
+        var themeMode = 'light';
+        var version = 'remote';
+
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function setLocal(themeData, safeArea) {
+            version = 'local';
+            setTheme(themeData, safeArea);
+        }
+
+        $('.loginInput').on('click', function () {
+            $(this).children('input').focus();
+        });
+
+        $('#loginBtn').on('click', function () {
+            if (!($(this).hasClass('disabled'))) {
+                var error = false;
+
+                if (!validateEmail($('#username').val())) {
+                    error = true;
+                    $('#usernameError').text('The email address is invalid.');
+                } else {
+                    $('#usernameError').text('');
+                }
+
+                if ($('#password').val().length < 8) {
+                    error = true;
+                    $('#passwordError').text('The password must have at least 8 characters.');
+                } else {
+                    $('#passwordError').text('');
+                }
+
+                if (error == false) {
+                    $(this).addClass('disabled');
+                    $(this).text('Loading...');
+
+                    var errTimer = null;
+                    function loginError(errCode) {
+                        var errMsg = 'Internal error.';
+
+                        if (errCode === 'password incorrect') {
+                            errMsg = 'The password is incorrect.';
+                        }
+
+                        $('#loginBtn').text(errMsg);
+
+                        if (errTimer) {
+                            clearTimer(errTimer);
+                        }
+
+                        errTimer = setTimeout(function () {
+                            $('#loginBtn').removeClass('disabled');
+                            $('#loginBtn').text('Continue');
+                        }, 3000);
+                    }
+
+                    $.ajax({
+                        type : 'POST',
+                        url: '/registerOrSignin',
+                        data: JSON.stringify({
+                            username: $('#username').val(),
+                            pw: $('#password').val()
+                        }),
+                        contentType : 'application/json',
+                        success: function(res) {
+                            try {
+                                if (res.status === 'success') {
+                                    location.reload();
+                                } else {
+                                    loginError(res.reason);
+                                }
+                            } catch (e) {
+                                loginError();
+                            }
+                        },
+                        error: function () {
+                            loginError();
+                        }
+                    });
+                }
+            }
+        });
+
+        setTimeout(function () {
+            if (version = 'remote') {
+                setTheme(
+                    getLightThemeData(), 
+                    {
+                        top: 24,
+                        left: 8,
+                        right: 8,
+                        bottom: 0,
+                    }
+                );
+            }
+        }, 500);
+
+    </script>
+</body>
+</html>
